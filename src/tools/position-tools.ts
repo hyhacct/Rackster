@@ -7,7 +7,17 @@ import { ToolFactory } from '../tool-factory.js';
 
 type Direction = 'forward' | 'back' | 'left' | 'right';
 
+/**
+ * 注册位置工具
+ * @param factory 工具工厂
+ * @param getBot 获取机器人实例
+ */
 export function registerPositionTools(factory: ToolFactory, getBot: () => mineflayer.Bot): void {
+
+  /**
+   * 获取当前位置
+   * @returns 当前位置
+   */
   factory.registerTool(
     "get-position",
     "Get the current position of the bot",
@@ -24,6 +34,14 @@ export function registerPositionTools(factory: ToolFactory, getBot: () => minefl
     }
   );
 
+  /**
+   * 移动到指定位置
+   * @param x 目标位置的X坐标
+   * @param y 目标位置的Y坐标
+   * @param z 目标位置的Z坐标
+   * @param range 到达目标位置的距离
+   * @returns 移动到指定位置的结果
+   */
   factory.registerTool(
     "move-to-position",
     "Move the bot to a specific position",
@@ -41,6 +59,13 @@ export function registerPositionTools(factory: ToolFactory, getBot: () => minefl
     }
   );
 
+  /**
+   * 看向指定位置
+   * @param x 目标位置的X坐标
+   * @param y 目标位置的Y坐标
+   * @param z 目标位置的Z坐标
+   * @returns 看向指定位置的结果
+   */
   factory.registerTool(
     "look-at",
     "Make the bot look at a specific position",
@@ -56,6 +81,10 @@ export function registerPositionTools(factory: ToolFactory, getBot: () => minefl
     }
   );
 
+  /**
+   * 跳跃
+   * @returns 跳跃的结果
+   */
   factory.registerTool(
     "jump",
     "Make the bot jump",
@@ -68,6 +97,12 @@ export function registerPositionTools(factory: ToolFactory, getBot: () => minefl
     }
   );
 
+  /**
+   * 在指定方向移动
+   * @param direction 移动方向
+   * @param duration 移动持续时间
+   * @returns 在指定方向移动的结果
+   */
   factory.registerTool(
     "move-in-direction",
     "Move the bot in a specific direction for a duration",

@@ -8,7 +8,17 @@ interface InventoryItem {
   slot: number;
 }
 
+/**
+ * 注册库存工具
+ * @param factory 工具工厂
+ * @param getBot 获取机器人实例
+ */
 export function registerInventoryTools(factory: ToolFactory, getBot: () => mineflayer.Bot): void {
+
+  /**
+   * 列出库存中的所有物品
+   * @returns 库存中的所有物品
+   */
   factory.registerTool(
     "list-inventory",
     "List all items in the bot's inventory",
@@ -35,6 +45,11 @@ export function registerInventoryTools(factory: ToolFactory, getBot: () => minef
     }
   );
 
+  /**
+   * 查找特定物品
+   * @param nameOrType 物品名称或类型
+   * @returns 查找特定物品的结果
+   */
   factory.registerTool(
     "find-item",
     "Find a specific item in the bot's inventory",
@@ -56,6 +71,12 @@ export function registerInventoryTools(factory: ToolFactory, getBot: () => minef
     }
   );
 
+  /**
+   * 装备特定物品
+   * @param itemName 物品名称
+   * @param destination 装备位置
+   * @returns 装备特定物品的结果
+   */
   factory.registerTool(
     "equip-item",
     "Equip a specific item",

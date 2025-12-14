@@ -1,10 +1,10 @@
 {
-  "name": "minecraft-mcp-server",
+  "name": "Rackster",
   "version": "1.0.0",
   "type": "module",
   "main": "dist/main.js",
   "bin": {
-    "minecraft-mcp-server": "dist/main.js"
+    "Rackster": "dist/main.js"
   },
   "ava": {
     "extensions": [

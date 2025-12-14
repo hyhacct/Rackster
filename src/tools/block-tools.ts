@@ -14,7 +14,21 @@ interface FaceOption {
   vector: Vec3;
 }
 
+/**
+ * 注册方块工具
+ * @param factory 工具工厂
+ * @param getBot 获取机器人实例
+ */
 export function registerBlockTools(factory: ToolFactory, getBot: () => mineflayer.Bot): void {
+
+  /**
+   * 放置方块
+   * @param x 方块的X坐标
+   * @param y 方块的Y坐标
+   * @param z 方块的Z坐标
+   * @param faceDirection 方块的朝向
+   * @returns 放置方块的结果
+   */
   factory.registerTool(
     "place-block",
     "Place a block at the specified position",
@@ -75,6 +89,13 @@ export function registerBlockTools(factory: ToolFactory, getBot: () => mineflaye
     }
   );
 
+  /**
+   * 挖掘方块
+   * @param x 方块的X坐标
+   * @param y 方块的Y坐标
+   * @param z 方块的Z坐标
+   * @returns 挖掘方块的结果
+   */
   factory.registerTool(
     "dig-block",
     "Dig a block at the specified position",
@@ -102,6 +123,13 @@ export function registerBlockTools(factory: ToolFactory, getBot: () => mineflaye
     }
   );
 
+  /**
+   * 获取方块信息
+   * @param x 方块的X坐标
+   * @param y 方块的Y坐标
+   * @param z 方块的Z坐标
+   * @returns 方块信息
+   */
   factory.registerTool(
     "get-block-info",
     "Get information about a block at the specified position",
@@ -123,6 +151,12 @@ export function registerBlockTools(factory: ToolFactory, getBot: () => mineflaye
     }
   );
 
+  /**
+   * 查找方块
+   * @param blockType 方块类型
+   * @param maxDistance 最大查找距离
+   * @returns 查找方块的结果
+   */
   factory.registerTool(
     "find-block",
     "Find the nearest block of a specific type",

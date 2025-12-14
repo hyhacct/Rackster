@@ -3,7 +3,19 @@ import mineflayer from 'mineflayer';
 import { ToolFactory } from '../tool-factory.js';
 import { MessageStore } from '../message-store.js';
 
+/**
+ * 注册聊天工具
+ * @param factory 工具工厂
+ * @param getBot 获取机器人实例
+ * @param messageStore 消息存储
+ */
 export function registerChatTools(factory: ToolFactory, getBot: () => mineflayer.Bot, messageStore: MessageStore): void {
+
+  /**
+   * 发送聊天消息
+   * @param message 消息内容
+   * @returns 发送聊天消息的结果
+   */
   factory.registerTool(
     "send-chat",
     "Send a chat message in-game",
@@ -17,6 +29,11 @@ export function registerChatTools(factory: ToolFactory, getBot: () => mineflayer
     }
   );
 
+  /**
+   * 读取聊天消息
+   * @param count 读取的消息数量
+   * @returns 读取聊天消息的结果
+   */
   factory.registerTool(
     "read-chat",
     "Get recent chat messages from players",

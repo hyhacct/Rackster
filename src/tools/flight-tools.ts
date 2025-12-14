@@ -3,6 +3,13 @@ import mineflayer from 'mineflayer';
 import { Vec3 } from 'vec3';
 import { ToolFactory } from '../tool-factory.js';
 
+/**
+ * 创建可取消的飞行操作
+ * @param bot 机器人实例
+ * @param destination 目标位置
+ * @param controller 取消控制器
+ * @returns 飞行操作的结果
+ */
 function createCancellableFlightOperation(
   bot: mineflayer.Bot,
   destination: Vec3,
@@ -31,7 +38,20 @@ function createCancellableFlightOperation(
   });
 }
 
+/**
+ * 注册飞行工具
+ * @param factory 工具工厂
+ * @param getBot 获取机器人实例
+ */
 export function registerFlightTools(factory: ToolFactory, getBot: () => mineflayer.Bot): void {
+  
+  /**
+   * 飞行到指定位置
+   * @param x 目标位置的X坐标
+   * @param y 目标位置的Y坐标
+   * @param z 目标位置的Z坐标
+   * @returns 飞行到指定位置的结果
+   */
   factory.registerTool(
     "fly-to",
     "Make the bot fly to a specific position",
