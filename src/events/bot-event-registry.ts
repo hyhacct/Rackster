@@ -102,19 +102,24 @@ export class BotEventRegistry {
       );
     });
 
-    this.bot.on('whisper', (username, message) => {
-      this.eventManager.createAndEmit(
-        'chat',
-        EventSeverity.INFO,
-        `[私聊] ${username}: ${message}`,
-        {
-          username,
-          message,
-          isBot: false,
-          isWhisper: true
-        }
-      );
-    });
+    // whisper 事件可能不存在，使用条件检查
+    try {
+      (this.bot as any).on('whisper', (username: string, message: string) => {
+        this.eventManager.createAndEmit(
+          'chat',
+          EventSeverity.INFO,
+          `[私聊] ${username}: ${message}`,
+          {
+            username,
+            message,
+            isBot: false,
+            isWhisper: true
+          }
+        );
+      });
+    } catch (e) {
+      // 事件不存在，忽略
+    }
   }
 
   /**
@@ -275,20 +280,43 @@ export class BotEventRegistry {
       }
     }
 
-    this.bot.inventory.on('updateSlot', (slot, oldItem, newItem) => {
-      if (oldItem?.name !== newItem?.name || oldItem?.count !== newItem?.count) {
-        this.eventManager.createAndEmit(
-          'inventory_update',
-          EventSeverity.INFO,
-          `物品栏更新: 槽位 ${slot}`,
-          {
-            slot,
-            oldItem: oldItem ? { name: oldItem.name, count: oldItem.count } : null,
-            newItem: newItem ? { name: newItem.name, count: newItem.count } : null
-          }
-        );
-      }
-    });
+    // inventory 可能在 bot 初始化时还不存在，需要检查
+    if (this.bot.inventory) {
+      this.bot.inventory.on('updateSlot', (slot, oldItem, newItem) => {
+        if (oldItem?.name !== newItem?.name || oldItem?.count !== newItem?.count) {
+          this.eventManager.createAndEmit(
+            'inventory_update',
+            EventSeverity.INFO,
+            `物品栏更新: 槽位 ${slot}`,
+            {
+              slot,
+              oldItem: oldItem ? { name: oldItem.name, count: oldItem.count } : null,
+              newItem: newItem ? { name: newItem.name, count: newItem.count } : null
+            }
+          );
+        }
+      });
+    } else {
+      // 如果 inventory 还不存在，等待 spawn 事件后再注册
+      this.bot.once('spawn', () => {
+        if (this.bot.inventory) {
+          this.bot.inventory.on('updateSlot', (slot, oldItem, newItem) => {
+            if (oldItem?.name !== newItem?.name || oldItem?.count !== newItem?.count) {
+              this.eventManager.createAndEmit(
+                'inventory_update',
+                EventSeverity.INFO,
+                `物品栏更新: 槽位 ${slot}`,
+                {
+                  slot,
+                  oldItem: oldItem ? { name: oldItem.name, count: oldItem.count } : null,
+                  newItem: newItem ? { name: newItem.name, count: newItem.count } : null
+                }
+              );
+            }
+          });
+        }
+      });
+    }
   }
 
   /**
