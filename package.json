@@ -1,0 +1,56 @@
+{
+  "name": "minecraft-mcp-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/main.js",
+  "bin": {
+    "minecraft-mcp-server": "dist/main.js"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "nodeArguments": [
+      "--import=tsx"
+    ]
+  },
+  "scripts": {
+    "dev": "node --loader=ts-node/esm src/main.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
+    "start": "node dist/main.js",
+    "test": "ava",
+    "lint": "eslint \"{src,tests}/**/*.ts\"",
+    "lint:fix": "eslint \"{src,tests}/**/*.ts\" --fix"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.3",
+    "minecraft-data": "^3.101.0",
+    "mineflayer": "^4.33.0",
+    "mineflayer-pathfinder": "^2.4.2",
+    "vec3": "^0.1.8",
+    "yargs": "^18.0.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@ava/typescript": "^6.0.0",
+    "@types/node": "^24.10.1",
+    "@types/sinon": "^21.0.0",
+    "@types/vec3": "^0.1.4",
+    "@types/yargs": "^17.0.35",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.1",
+    "ava": "^6.4.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-ava": "^15.1.0",
+    "globals": "^16.5.0",
+    "sinon": "^21.0.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "packageManager": "pnpm@10.15.1+sha512.34e538c329b5553014ca8e8f4535997f96180a1d0f614339357449935350d924e22f8614682191264ec33d1462ac21561aff97f6bb18065351c162c7e8f6de67"
+}
